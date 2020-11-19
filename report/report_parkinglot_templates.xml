@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_parkinglots">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h3 class="mb32">Parking Lot Report</h3>
+                    <t t-set="info" t-value="get_date"/>
+                    <t t-if="info['start_date'] or info['end_date']">
+                        <h3 class="text-center mb32">
+                            <t t-if="info['start_date']==info['end_date']">
+                                Analyze in <u><t t-esc="info['start_date']"/></u>
+                            </t>
+                            <t t-else="">
+                                Analyze from <u><t t-esc="info['start_date'] if info['start_date'] else 'past'"/></u> to
+                                        <u><t t-esc="info['end_date'] if info['end_date'] else 'present'"/></u>
+                            </t>
+                        </h3>
+                    </t>
+                    <t t-set="types" t-value="get_type_vh"/>
+                    <t t-set="len" t-value="len(types)"/>
+                    <t t-set="tickets" t-value="get_tickets"/>
+
+                    <t t-set="extra_total_quantity" t-value="0"/>
+                    <t t-set="extra_total_price" t-value="0"/>
+
+                    <div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th rowspan="3" class="text-center" style="vertical-align: middle;">
+                                    Parking Lot
+                                </th>
+                                <th class="text-center" t-att-colspan="len(types)*2">
+                                    Type
+                                </th>
+                                <th rowspan="2" colspan="2" class="text-center" style="vertical-align: middle;">
+                                    Summary
+                                </th>
+                            </tr>
+                            <tr>
+                                <t t-foreach="types" t-as="type">
+                                    <td colspan="2"><span t-field="type.type"/></td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <t t-foreach="types" t-as="type">
+                                    <td>Amount</td>
+                                    <td>Total Price</td>
+                                </t>
+                                <td>Amount</td>
+                                <td>Total Price</td>
+                            </tr>
+
+                            <t t-foreach="parkinglots" t-as="o">
+                                <tr>
+
+                                    <td><span t-field="o.name"/></td>
+
+                                    <t t-set="total_quantity" t-value="0"/>
+                                    <t t-set="total_price" t-value="0"/>
+
+                                    <t t-foreach="types" t-as="type">
+                                        <t t-set="quantity" t-value="0"/>
+                                        <t t-set="price" t-value="0"/>
+                                        <t t-foreach="tickets" t-as="ticket">
+                                            <t t-if="ticket.vehicle_type_with_price.vehicle_id.type == type.type and ticket.parkinglots_id == o and ticket.paid">
+                                                <t t-set="quantity" t-value="quantity+1"/>
+                                                <t t-set="price" t-value="price + ticket.price_ticket"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="type in o.limit_vehicle_ids.vehicle_id">
+                                            <td><span t-esc="quantity"/></td>
+                                            <td><span t-esc="price"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                            <td></td>
+                                        </t>
+
+                                        <t t-set="total_quantity" t-value="total_quantity + quantity"/>
+                                        <t t-set="total_price" t-value="total_price + price"/>
+                                    </t>
+                                    <t t-set="extra_total_quantity" t-value="extra_total_quantity + total_quantity"/>
+                                    <t t-set="extra_total_price" t-value="extra_total_price + total_price"/>
+                                    
+                                    <td><span t-esc="total_quantity"/></td>
+                                    <td><span t-esc="total_price"/></td>
+                                </tr>
+                            </t>
+                            <tr class="bg-dark">
+                                <td class="text text-danger">TOTAL</td>
+                                <t t-foreach="types" t-as="type">
+                                    <t t-set="type_quantity" t-value="0"/>
+                                    <t t-set="type_price" t-value="0"/>
+                                    <t t-foreach="tickets" t-as="ticket">
+                                        <t t-if="ticket.vehicle_type_with_price.vehicle_id.type == type.type and ticket.paid">
+                                            <t t-set="type_quantity" t-value="type_quantity+1"/>
+                                            <t t-set="type_price" t-value="type_price + ticket.price_ticket"/>
+                                        </t>
+                                    </t>
+                                    <td><span t-esc="type_quantity"/></td>
+                                    <td><span t-esc="type_price"/></td>
+                                </t>
+                                <td><span t-esc="extra_total_quantity"/></td>
+                                <td><span t-esc="extra_total_price"/></td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+
+<!--                    <t t-foreach="parkinglots" t-as="o">-->
+<!--                        <h5><span t-esc="o.name"/></h5>-->
+<!--                    </t>-->
+<!--                    <t t-foreach="tickets" t-as="ticket">-->
+<!--                        <p><span t-field="ticket.code_generator"/>|<span t-esc="ticket.paid"/></p>-->
+<!--                    </t>-->
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

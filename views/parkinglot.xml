@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record model="ir.ui.view" id="parkinglots_form_view">
+            <field name="name">parkinglots.form</field>
+            <field name="model">parkinglot.parkinglots</field>
+            <field name="arch" type="xml">
+                <form string="Parking Lot Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="location"/>
+                            <field name="operating_time"/>
+                            <field name="responsible_id"/>
+                            <field name="parkinglot_sequence_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Limit Vehicle" name="limit_vehicles">
+                                <field name="limit_vehicle_ids" mode="tree">
+                                    <tree editable="top">
+                                        <field name="vehicle_id"/>
+                                        <field name="amount_vehicle"/>
+                                        <field name="price_vehicle_on_parkinglot"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="About">
+                                    This is an example for parking lot manager system
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parkinglots_tree_view">
+            <field name="name">parkinglots.tree</field>
+            <field name="model">parkinglot.parkinglots</field>
+            <field name="arch" type="xml">
+                <tree string="Parking Lots Tree">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="operating_time"/>
+                    <field name="responsible_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="parkinglots_list_action">
+            <field name="name">Parking Lots</field>
+            <field name="res_model">parkinglot.parkinglots</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Parking lot
+                </p>
+            </field>
+        </record>
+
+        <!-- top level menu: no parent -->
+        <menuitem id="main_parkinglot_menu" name="Parking Lot"/>
+        <!-- A first level in the left side menu is needed
+             before using action= attribute -->
+        <menuitem id="parkinglot_menu" name="Parking Lot"
+                  parent="main_parkinglot_menu"/>
+        <!-- the following menuitem should appear *after*
+             its parent parkinglot_menu and *after* its
+             action parkinglots_list_action -->
+        <menuitem id="parkinglots_menu" name="Parking Lots" parent="parkinglot_menu"
+                  action="parkinglots_list_action"/>
+        <!-- Full id location:
+             action="parkinglot.parkinglots_list_action"
+             It is not required when it is the same module -->
+
+
+        <!-- parkingticket form view -->
+        <record model="ir.ui.view" id="parkingtickets_form_view">
+            <field name="name">parkingtickets.form</field>
+            <field name="model">parkinglot.parkingtickets</field>
+            <field name="arch" type="xml">
+                <form string="Parking Tickets Form">
+                    <sheet>
+                            <div class="oe_title">
+                                <h1><field name="code_generator" readonly="1"/></h1>
+                                <hr/>
+                            </div>
+                        <group>
+<!--                            <field name="name"/>-->
+                            <field name="parkinglots_id"/>
+                            <field name="vehicle_type_with_price"/>
+                            <field name="paid"/>
+                            <field name="start_time"/>
+                            <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                            <field name="duration" readonly="1"/>
+                            <field name="price_ticket" readonly="1"/>
+<!--                            <field name="duration_hours" readonly="1"/>-->
+<!--                            <field name="duration_minutes" readonly="1"/>-->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parkingtickets_tree_view">
+            <field name="name">parkingtickets.tree</field>
+            <field name="model">parkinglot.parkingtickets</field>
+            <field name="arch" type="xml">
+                <tree string="Parking Tickets Tree">
+<!--                    <field name="id"/>-->
+                    <field name="parkinglots_id"/>
+                    <field name="vehicle_type_with_price"/>
+                    <field name="start_time"/>
+                    <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                    <field name="duration"/>
+                    <field name="code_generator"/>
+                    <field name="paid"/>
+                    <field name="price_ticket"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_parkingticket_filter" model="ir.ui.view">
+            <field name="name">parkinglot.parkingtickets.list.select</field>
+            <field name="model">parkinglot.parkingtickets</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <search string="Search Parking Tickets">
+                    <field name="parkinglots_id"/>
+                    <field name="vehicle_type_with_price"/>
+                    <field name="start_time"/>
+                    <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                    <field name="duration"/>
+                    <field name="code_generator"/>
+                    <field name="paid"/>
+                    <field name="price_ticket"/>
+
+                    <filter name="filter_create_date" date="start_time" string="Start Date" default_period="this_week"/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parkingtickets_calendar_view">
+            <field name="name">parkingtickets.calendar</field>
+            <field name="model">parkinglot.parkingtickets</field>
+            <field name="arch" type="xml">
+                <calendar string="Parking Tickets Calendar"
+                          date_start="start_time" date_stop="end_time"
+                          color="parkinglots_id">
+                    <field name="vehicle_type_with_price"/>
+                    <field name="parkinglots_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!--
+        gantt view for calendar
+        (gantt view ho tro cho calendar view giong nhu calendar cua google calendar)
+        -->
+        <record model="ir.ui.view" id="parkingtickets_gantt_view">
+            <field name="name">parkingtickets.gantt</field>
+            <field name="model">parkinglot.parkingtickets</field>
+            <field name="arch" type="xml">
+                <gantt string="Parking Tickets Gantt"
+                       date_start="start_time" date_stop="end_time"
+                       default_group_by="parkinglots_id">
+                </gantt>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="parkingtickets_list_action">
+            <field name="name">Parking Tickets</field>
+            <field name="res_model">parkinglot.parkingtickets</field>
+            <field name="view_mode">tree,form,calendar,gantt</field>
+        </record>
+
+        <menuitem id="parkingtickets_menu" name="Parking Tickets"
+                  parent="parkinglot_menu"
+                  action="parkingtickets_list_action"/>
+
+        <!-- vehicletype view -->
+        <record model="ir.ui.view" id="vehicletype_form_view">
+            <field name="name">vehicletype.form</field>
+            <field name="model">parkinglot.vehicletype</field>
+            <field name="arch" type="xml">
+                <form string="Vehicle Type Form">
+                    <sheet>
+                        <group>
+                            <field name="id"/>
+                            <field name="type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="vehicletype_tree_view">
+            <field name="name">vehicletype.tree</field>
+            <field name="model">parkinglot.vehicletype</field>
+            <field name="arch" type="xml">
+                <tree string="Vehicle Type Tree">
+                    <field name="id"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="vehicletype_list_action">
+            <field name="name">Vehicle Type</field>
+            <field name="res_model">parkinglot.vehicletype</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first vehicle
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="vehicletype_menu" name="Vehicle Type"
+                  parent="parkinglot_menu"
+                  action="vehicletype_list_action"/>
+
+</odoo>

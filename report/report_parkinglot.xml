@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_parkinglot" model="ir.actions.report">
+            <field name="name">Parking Lot Report</field>
+            <field name="model">parkinglot.parkinglots</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">parkinglot.report_parkinglots</field>
+            <field name="report_file">parkinglot.report_parkinglots</field>
+<!--            <field name="print_report_name">(object.name)</field>-->
+        </record>
+
+        <record id="action_report_parkinglot" model="ir.actions.report">
+            <field name="paperformat_id" ref="parkinglot.paperformat_parkinglot_summary"/>
+        </record>
+
+    </data>
+</odoo>

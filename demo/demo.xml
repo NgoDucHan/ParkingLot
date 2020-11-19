@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record model="parkinglot.parkinglots" id="parkinglot0">
+            <field name="name">C0</field>
+            <field name="location">371 Nguyen Kiem</field>
+            <field name="description">C0 parking lot
+                Multiple lines
+            </field>
+        </record>
+        <record model="parkinglot.parkinglots" id="parkinglot1">
+            <field name="name">C1</field>
+            <field name="location">371 Nguyen Kiem</field>
+            <!-- no description for this one -->
+        </record>
+        <record model="parkinglot.parkinglots" id="parkinglot2">
+            <field name="name">C2</field>
+            <field name="location">97 Vo Van Tan</field>
+            <field name="description">C2's description</field>
+        </record>
+    </data>
+    <data>
+        <record model="parkinglot.vehicletype" id="V1">
+            <field name="type">Bike</field>
+        </record>
+        <record model="parkinglot.vehicletype" id="V2">
+            <field name="type">Car</field>
+        </record>
+    </data>
+</odoo>
