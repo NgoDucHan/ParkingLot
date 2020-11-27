@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions, _
-from datetime import timedelta
-import math
-import datetime
+from odoo import models, fields
 
 
 class Vehicle(models.Model):

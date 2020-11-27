@@ -1,8 +1,5 @@
+# -*- coding: utf-8 -*-
 
-import calendar
-
-from datetime import timedelta
-from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 

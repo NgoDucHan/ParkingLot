@@ -28,19 +28,18 @@
 
         'data/ir_cron_parking_lot.xml',
         'data/parking_ticket_data.xml',
-        'data/report_paperformat.xml',
 
-        'wizard/report_wizard_parking_lot_view.xml',
+        'wizard/make_report_parking_lot_views.xml',
 
-        'report/report_parking_lot.xml',
-        'report/report_parking_lot_templates.xml',
+        'report/parking_lot_reports.xml',
+        'report/parking_lot_templates.xml',
 
-        'views/parking_lot.xml',
-        'views/views.xml',
-        'views/templates.xml',
+        'views/parking_lot_views.xml',
+        'views/parking_ticket_views.xml',
+        'views/parking_vehicle_views.xml',
+        'views/parking_lot_menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
     ],
 }

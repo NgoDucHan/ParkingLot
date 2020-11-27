@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    parkingticket form view -->
+        <record model="ir.ui.view" id="parking_ticket_form_view">
+            <field name="name">parking.ticket.form</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Parking Tickets Form">
+                    <sheet>
+                            <div class="oe_title">
+                                <h1><field name="code_generator" readonly="1"/></h1>
+                                <hr/>
+                            </div>
+                        <group>
+                            <field name="parking_lot_id"/>
+                            <field name="pricelist_id"/>
+                            <field name="paid"/>
+                            <field name="start_time"/>
+                            <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                            <field name="duration" readonly="1"/>
+                            <field name="price_ticket" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parking_ticket_search_view">
+            <field name="name">parking.ticket.search</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <search string="Paid">
+                    <field name="parking_lot_id"/>
+                    <field name="paid"/>
+                    <separator/>
+                    <filter name="is_paid" string="Not Pay"
+                            domain="[('paid', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parking_ticket_tree_view">
+            <field name="name">parking.ticket.tree</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <tree string="Parking Tickets Tree">
+                    <field name="parking_lot_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                    <field name="duration"/>
+                    <field name="code_generator"/>
+                    <field name="paid"/>
+                    <field name="price_ticket"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_parking_ticket_filter" model="ir.ui.view">
+            <field name="name">parking.ticket.list.select</field>
+            <field name="model">parking.ticket</field>
+            <field name="priority" eval="17"/>
+            <field name="arch" type="xml">
+                <search string="Search Parking Ticket">
+                    <field name="parking_lot_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="start_time"/>
+                    <field name="end_time" attrs="{'invisible':[('paid', '!=', True)]}"/>
+                    <field name="duration"/>
+                    <field name="code_generator"/>
+                    <field name="paid"/>
+                    <field name="price_ticket"/>
+
+                    <filter name="filter_create_date" date="start_time" string="Start Date" default_period="this_week"/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parking_ticket_calendar_view">
+            <field name="name">parking.ticket.calendar</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <calendar string="Parking Ticket Calendar"
+                          date_start="start_time" date_stop="end_time"
+                          color="parking_lot_id">
+                    <field name="pricelist_id"/>
+                    <field name="parking_lot_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <!--
+        gantt view for calendar
+        (gantt view ho tro cho calendar view giong nhu calendar cua google calendar)
+        -->
+        <record model="ir.ui.view" id="parking_ticket_gantt_view">
+            <field name="name">parking.ticket.gantt</field>
+            <field name="model">parking.ticket</field>
+            <field name="arch" type="xml">
+                <gantt string="Parking Ticket Gantt"
+                       date_start="start_time" date_stop="end_time"
+                       default_group_by="parking_lot_id">
+                </gantt>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="parking_ticket_list_action">
+            <field name="name">Parking Ticket</field>
+            <field name="res_model">parking.ticket</field>
+            <field name="view_mode">tree,form,calendar,gantt,search</field>
+            <field name="search_view_id" ref="parking_ticket_search_view"/>
+        </record>
+
+</odoo>

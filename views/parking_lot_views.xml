@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record model="ir.ui.view" id="parking_lot_form_view">
+            <field name="name">parking.lot.form</field>
+            <field name="model">parking.lot</field>
+            <field name="arch" type="xml">
+                <form string="Parking Lot Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="location"/>
+                            <field name="calendar_id"/>
+                            <field name="responsible_id"/>
+                            <field name="sequence_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Vehicle" name="price_list">
+                                <field name="pricelist_ids" mode="tree">
+                                    <tree editable="top">
+                                        <field name="vehicle_id"/>
+                                        <field name="amount_vehicle"/>
+                                        <field name="price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="About">
+                                    This is an example for parking lot manager system
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parking_lot_tree_view">
+            <field name="name">parking.lot.tree</field>
+            <field name="model">parking.lot</field>
+            <field name="arch" type="xml">
+                <tree string="Parking Lots Tree">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="calendar_id"/>
+                    <field name="responsible_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="parking_lot_kanban_view">
+            <field name="name">parking.lot.kanban</field>
+            <field name="model">parking.lot</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="calendar_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings mt4">
+                                        <strong class="o_kanban_record_title">Parking Lot: <span class="text text-success"><t t-esc="record.name.value"/></span></strong>
+                                    </div>
+                                    <div class="oe_kanban_top_right text-muted">
+                                        <span><t t-esc="record.location.value"/></span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span><t t-esc="record.calendar_id.value"/></span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <button name="show_tickets" type="object" class="btn btn-success">Show Tickets</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="parking_lot_list_action">
+            <field name="name">Parking Lot</field>
+            <field name="res_model">parking.lot</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Parking lot
+                </p>
+            </field>
+        </record>
+</odoo>

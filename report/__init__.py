@@ -1,1 +1,1 @@
-from . import parking_report
+from . import parking_lot_report

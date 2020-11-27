@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<!--    top level menu: no parent -->
+        <menuitem id="main_parking_menu" name="Parking" action="parking_lot_list_action"/>
+<!--    menu parking options -->
+        <menuitem id="parking_menu" name="Parking"
+                  parent="main_parking_menu"/>
+<!--    parking lot menu -->
+        <menuitem id="parking_lot_menu" name="Parking Lot" parent="main_parking_menu"
+                  action="parking_lot_list_action"/>
+<!--    parking ticket menu -->
+        <menuitem id="parking_ticket_menu" name="Parking Ticket"
+                  parent="main_parking_menu"
+                  action="parking_ticket_list_action"/>
+<!--    parking vehicle menu -->
+        <menuitem id="vehicle_menu" name="Vehicle"
+                  parent="parking_menu"
+                  action="vehicle_list_action"/>
+</odoo>

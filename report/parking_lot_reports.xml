@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
+
+        <record id="action_report_parking_lot" model="ir.actions.report">
+            <field name="name">Parking Lot Report</field>
+            <field name="model">parking.lot</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">parking.report_parking_lot</field>
+            <field name="report_file">parking.report_parking_lot</field>
+        </record>
+
+        <record id="action_report_parking_lot" model="ir.actions.report">
+            <field name="paperformat_id" ref="parking.paperformat_parking_lot_summary"/>
+        </record>
+
         <record id="paperformat_parking_lot_summary" model="report.paperformat">
             <field name="name">Time Off Summary</field>
             <field name="default" eval="True"/>
@@ -15,4 +29,6 @@
             <field name="header_spacing">20</field>
             <field name="dpi">90</field>
         </record>
+
+    </data>
 </odoo>
