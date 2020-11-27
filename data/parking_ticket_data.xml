@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="sequence_parking_lots" model="ir.sequence">
+        <record id="sequence_parking_lot" model="ir.sequence">
             <field name="name">Code Generator</field>
-            <field name="code">parkinglot.parkingtickets.seq</field>
+            <field name="code">parkingticket.seq</field>
             <field name="prefix"></field>
             <field name="padding">7</field>
             <field name="number_next">1</field>

@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_parkinglot_parkinglots,parkinglot.parkinglots,model_parkinglot_parkinglots,base.group_user,1,1,1,1
-access_parkinglot_parkingtickets,parkinglot.parkingtickets,model_parkinglot_parkingtickets,base.group_user,1,1,1,1
-access_parkinglot_vehicletype,parkinglot.vehicletype,model_parkinglot_vehicletype,base.group_user,1,1,1,1
-access_parkinglot_limitvehicle,parkinglot.limitvehicle,model_parkinglot_limitvehicle,base.group_user,1,1,1,1
-access_parkinglot_report_wizard,parkinglot.report.wizard,model_parkinglot_report_wizard,base.group_user,1,1,1,1
+access_parking_lot,parking.lot,model_parking_lot,base.group_user,1,1,1,1
+access_parking_ticket,parking.ticket,model_parking_ticket,base.group_user,1,1,1,1
+access_parking_vehicle,parking.vehicle,model_parking_vehicle,base.group_user,1,1,1,1
+access_parking_pricelist,parking.pricelist,model_parking_pricelist,base.group_user,1,1,1,1
+access_parking_report_wizard,parking.report.wizard,model_parking_report_wizard,base.group_user,1,1,1,1

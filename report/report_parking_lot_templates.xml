@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_parkinglots">
+    <template id="report_parking_lot">
         <t t-call="web.html_container">
             <t t-call="web.internal_layout">
                 <div class="page">
@@ -8,13 +8,8 @@
                     <t t-set="info" t-value="get_date"/>
                     <t t-if="info['start_date'] or info['end_date']">
                         <h3 class="text-center mb32">
-                            <t t-if="info['start_date']==info['end_date']">
-                                Analyze in <u><t t-esc="info['start_date']"/></u>
-                            </t>
-                            <t t-else="">
-                                Analyze from <u><t t-esc="info['start_date'] if info['start_date'] else 'past'"/></u> to
-                                        <u><t t-esc="info['end_date'] if info['end_date'] else 'present'"/></u>
-                            </t>
+                            Analyze from <u><t t-esc="info['start_date'] if info['start_date'] else '...'"/></u> to
+                                        <u><t t-esc="info['end_date'] if info['end_date'] else '...'"/></u>
                         </h3>
                     </t>
                     <t t-set="types" t-value="get_type_vh"/>
@@ -63,12 +58,12 @@
                                         <t t-set="quantity" t-value="0"/>
                                         <t t-set="price" t-value="0"/>
                                         <t t-foreach="tickets" t-as="ticket">
-                                            <t t-if="ticket.vehicle_type_with_price.vehicle_id.type == type.type and ticket.parkinglots_id == o and ticket.paid">
+                                            <t t-if="ticket.pricelist_id.vehicle_id.type == type.type and ticket.parking_lot_id == o and ticket.paid">
                                                 <t t-set="quantity" t-value="quantity+1"/>
                                                 <t t-set="price" t-value="price + ticket.price_ticket"/>
                                             </t>
                                         </t>
-                                        <t t-if="type in o.limit_vehicle_ids.vehicle_id">
+                                        <t t-if="type in o.pricelist_ids.vehicle_id">
                                             <td><span t-esc="quantity"/></td>
                                             <td><span t-esc="price"/></td>
                                         </t>
@@ -93,7 +88,7 @@
                                     <t t-set="type_quantity" t-value="0"/>
                                     <t t-set="type_price" t-value="0"/>
                                     <t t-foreach="tickets" t-as="ticket">
-                                        <t t-if="ticket.vehicle_type_with_price.vehicle_id.type == type.type and ticket.paid">
+                                        <t t-if="ticket.pricelist_id.vehicle_id.type == type.type and ticket.paid">
                                             <t t-set="type_quantity" t-value="type_quantity+1"/>
                                             <t t-set="type_price" t-value="type_price + ticket.price_ticket"/>
                                         </t>
@@ -107,14 +102,6 @@
 
                         </table>
                     </div>
-
-
-<!--                    <t t-foreach="parkinglots" t-as="o">-->
-<!--                        <h5><span t-esc="o.name"/></h5>-->
-<!--                    </t>-->
-<!--                    <t t-foreach="tickets" t-as="ticket">-->
-<!--                        <p><span t-field="ticket.code_generator"/>|<span t-esc="ticket.paid"/></p>-->
-<!--                    </t>-->
                 </div>
             </t>
         </t>

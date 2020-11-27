@@ -3,19 +3,19 @@
 
 
 # class Parkinglot(http.Controller):
-#     @http.route('/parkinglot/parkinglot/', auth='public')
+#     @http.route('/parking/parking/', auth='public')
 #     def index(self, **kw):
 #         return "Hello, world"
 
-#     @http.route('/parkinglot/parkinglot/objects/', auth='public')
+#     @http.route('/parking/parking/objects/', auth='public')
 #     def list(self, **kw):
-#         return http.request.render('parkinglot.listing', {
-#             'root': '/parkinglot/parkinglot',
-#             'objects': http.request.env['parkinglot.parkinglot'].search([]),
+#         return http.request.render('parking.listing', {
+#             'root': '/parking/parking',
+#             'objects': http.request.env['parking.parking'].search([]),
 #         })
 
-#     @http.route('/parkinglot/parkinglot/objects/<model("parkinglot.parkinglot"):obj>/', auth='public')
+#     @http.route('/parking/parking/objects/<model("parking.parking"):obj>/', auth='public')
 #     def object(self, obj, **kw):
-#         return http.request.render('parkinglot.object', {
+#         return http.request.render('parking.object', {
 #             'object': obj
 #         })
