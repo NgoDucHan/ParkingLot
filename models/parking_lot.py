@@ -26,6 +26,14 @@ class ParkingLot(models.Model):
 
     sequence_id = fields.Many2one('ir.sequence', string="Parking Lot Sequence", required=True)
 
+    _sql_constraints = [
+        (
+            'parking_lot_unique',
+            'UNIQUE(name)',
+            'The parking lot must be unique',
+        ),
+    ]
+
     def show_tickets(self):
         id = self.id
         domain = [('parking_lot_id', '=', id)]
@@ -50,5 +58,9 @@ class ParkingLot(models.Model):
                                                                 ('vehicle_id', '=', item.vehicle_id.id)]) >= 2:
                 raise exceptions.ValidationError("The type of the vehicle in Vehicle Reference must be unique")
             if item.price <= 0:
-                raise exceptions.ValidationError("The price in field: \"{0}\" must be more than zero!".format(item.vehicle_id.type))
+                raise exceptions.ValidationError("The price in field: \"{0}\" must be more than zero!"
+                                                 .format(item.vehicle_id.type))
+
+        if not list_check:
+            raise exceptions.ValidationError("The type of vehicle is not null!")
 

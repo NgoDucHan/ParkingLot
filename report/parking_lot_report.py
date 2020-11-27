@@ -42,14 +42,12 @@ class ParkinglotReport(models.AbstractModel):
             raise UserError(_("Form content is missing, this report cannot be printed."))
 
         parking_lot_report = self.env['ir.actions.report']._get_report_from_name('parking.report_parking_lot')
-        # parkingtickets = self.env['parking.parkingtickets'].browse(self.ids)
         parkinglots = self.env['parking.lot'].browse(self.env.context.get('active_ids', []))
         return {
             'doc_ids': self.ids,
             'doc_model': parking_lot_report.model,
             'docs': self,
             'parkinglots': parkinglots,
-            # 'tickets': parkingtickets,
             'get_date': self._get_date(data['form']['date_from'], data['form']['date_to']),
             'get_tickets': self._get_tickets(
                 data['form']['parking_lot_id'],
