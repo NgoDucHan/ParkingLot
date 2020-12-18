@@ -63,4 +63,3 @@ class ParkingLot(models.Model):
 
         if not list_check:
             raise exceptions.ValidationError("The type of vehicle is not null!")
-

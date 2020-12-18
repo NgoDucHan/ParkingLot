@@ -10,6 +10,14 @@
             <field name="report_file">parking.report_parking_lot</field>
         </record>
 
+        <record id="action_report_parking_lot_xlsx" model="ir.actions.report">
+            <field name="name">Parking Lot Report / XLSX</field>
+            <field name="model">parking.lot</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">parking.report_parking_lot_xlsx</field>
+            <field name="report_file">parking.report_parking_lot_xlsx</field>
+        </record>
+
         <record id="action_report_parking_lot" model="ir.actions.report">
             <field name="paperformat_id" ref="parking.paperformat_parking_lot_summary"/>
         </record>
@@ -31,4 +39,5 @@
         </record>
 
     </data>
+
 </odoo>

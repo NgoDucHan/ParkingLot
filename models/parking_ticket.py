@@ -101,7 +101,7 @@ class ParkingTicket(models.Model):
                     # raise exceptions.ValidationError("Full slots!")
                     return {
                         'warning': {
-                            'title': "Full slots",
+                            'title': "Warning: Full slots",
                             'message': "The amount of slots in parking lot is full "
                                        "(limit: {0} {1}s, current: {2} {1}s)".format(
                                         amount_default,

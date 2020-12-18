@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 
 class ParkinglotReport(models.AbstractModel):
-    _name = 'report.parking.report_parking_lot'
+    _name = 'report.parking.report_parking_lot' #giong ten cua ham phia ben parking_lot_reports.xml theo dinh dang report.<model>
     _description = 'Parking Lot Report'
 
     def _get_date(self, start_date=None, end_date=None):
